@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Emissions Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #060607;
+            color: #fff6f6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #060606;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #1056bf;
+            font-size: 4em;
+        }
+        h2 {
+            text-align: left;
+            color: #3d8bd8;
+            font-size: 2em;
+        }
+        h3 {
+            text-align: left;
+            color: #2684e3;
+            font-size: 2em;
+        }
+        h4 {
+            text-align: center;
+            color: #1a98c6;
+            font-size: 2em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background: #272424;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .sdg-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .sdg {
+            background: #272424;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Industrial Emissions Tracking</h1>
+        
+        <h2>Description</h2>
+        <p>The business idea involves creating a blockchain-based platform to track and report industrial carbon and pollutant emissions. By leveraging blockchain technology, the platform ensures transparency, accountability, and accuracy in monitoring emissions, which can help industries comply with environmental regulations and reduce their carbon footprint.</p>
+
+        <h2>Techniques Used</h2>
+        <ul>
+            <li><strong>Linked List:</strong>  Blockchain itself is commonly implemented as a linked list where each block is connected to the previous one via a hash.</li>
+
+            <p>Structure:</p>
+            <p>Each block contains:</p>
+            <ul>
+                <li>Emission data (e.g., timestamp, carbon output, pollutant levels).</li>
+                <li>Hash of the current block.</li>
+                <li>Hash of the previous block.</li>
+            </ul>
+                
+            
+            <li><strong>Hash Table:</strong> To store and retrieve emission records for industries or facilities based on unique IDs (e.g., industry ID or block hash).</li>
+            <p>Structure:</p>
+            <ul>
+                <li>Keys: Industry ID or Block Hash</li>
+                <li>Values: Corresponding block or data.</li>
+            </ul>  
+        </ul>
+
+        <h2>Pseudocode</h2>
+
+        <h3>Linked List</h3>
+        <pre><code>#include &lt;iostream&gt;
+            #include &lt;string&gt;
+            #include &lt;ctime&gt;
+            #include &lt;sstream&gt;
+            #include &lt;openssl/sha.h&gt; // Include a library for hash functions
+            
+            using namespace std;
+            
+            // Structure to represent a Block in the blockchain
+            struct Block {
+                int blockID;                 // Block ID
+                string timestamp;            // Timestamp for when the block is created
+                string emissionsData;        // Emission details (e.g., carbon output, pollutants)
+                string previousHash;         // Hash of the previous block
+                string blockHash;            // Hash of this block
+                Block* next;                 // Pointer to the next block (Linked List structure)
+            
+                // Constructor to initialize a new block
+                Block(int id, string data, string prevHash) {
+                    blockID = id;
+                    emissionsData = data;
+                    previousHash = prevHash;
+                    timestamp = getCurrentTime();
+                    blockHash = calculateHash(); // Generate hash for the block
+                    next = nullptr;
+                }
+            
+                // Function to get the current time
+                string getCurrentTime() {
+                    time_t now = time(0);
+                    char* dt = ctime(&now);
+                    return string(dt);
+                }
+            
+                // Function to calculate the block's hash
+                string calculateHash() {
+                    stringstream ss;
+                    ss << blockID << timestamp << emissionsData << previousHash;
+                    string input = ss.str();
+            
+                    // Generate a SHA256 hash (example, replace with library-based implementation)
+                    unsigned char hash[SHA256_DIGEST_LENGTH];
+                    SHA256((unsigned char*)input.c_str(), input.size(), hash);
+            
+                    stringstream hashString;
+                    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+                        hashString << hex << (int)hash[i];
+                    }
+            
+                    return hashString.str();
+                }
+            };
+            
+            // Class to represent the Blockchain (Linked List of Blocks)
+            class Blockchain {
+            private:
+                Block* head; // Head of the blockchain
+            
+            public:
+                Blockchain() {
+                    head = nullptr;
+                }
+            
+                // Function to add a new block
+                void addBlock(string emissionsData) {
+                    string prevHash = head ? head->blockHash : "0"; // Genesis block has "0" as previous hash
+                    Block* newBlock = new Block(getNextBlockID(), emissionsData, prevHash);
+            
+                    newBlock->next = head; // Add the block to the front (linked list style)
+                    head = newBlock;
+            
+                    cout << "Block added: " << newBlock->blockID << ", Hash: " << newBlock->blockHash << endl;
+                }
+            
+                // Function to print the blockchain
+                void printBlockchain() {
+                    Block* temp = head;
+                    while (temp != nullptr) {
+                        cout << "Block ID: " << temp->blockID << endl;
+                        cout << "Timestamp: " << temp->timestamp;
+                        cout << "Emissions Data: " << temp->emissionsData << endl;
+                        cout << "Previous Hash: " << temp->previousHash << endl;
+                        cout << "Current Hash: " << temp->blockHash << endl;
+                        cout << "----------------------------------" << endl;
+                        temp = temp->next;
+                    }
+                }
+            
+                // Helper to generate the next block ID
+                int getNextBlockID() {
+                    return head ? head->blockID + 1 : 1;
+                }
+            };
+            
+            // Main function
+            int main() {
+                Blockchain blockchain;
+            
+                // Add sample blocks
+                blockchain.addBlock("Factory A: CO2 = 100kg, NOx = 50kg");
+                blockchain.addBlock("Factory B: CO2 = 150kg, SO2 = 30kg");
+                blockchain.addBlock("Factory C: CO2 = 200kg, PM2.5 = 20kg");
+            
+                // Print the blockchain
+                blockchain.printBlockchain();
+            
+                return 0;
+            }
+</code></pre>
+
+        <h3>Hash Table</h3>
+        <pre><code>#include &lt;iostream&gt;
+            #include &lt;vector&gt;
+            #include &lt;list&gt;
+            #include &lt;string&gt;
+            using namespace std;
+            
+            // Hash Table Entry Structure
+            struct EmissionRecord {
+                string industryID;      // Unique ID for the industry
+                string emissionsData;   // Emission details (e.g., CO2, SO2 levels)
+            };
+            
+            // Hash Table Class
+            class HashTable {
+            private:
+                vector<list<EmissionRecord>> table; // Array of linked lists (chaining for collision resolution)
+                int capacity;                       // Size of the hash table
+            
+                // Hash function to map industryID to an index
+                int hashFunction(string industryID) {
+                    int hash = 0;
+                    for (char c : industryID) {
+                        hash = (hash * 31 + c) % capacity; // Simple polynomial hash
+                    }
+                    return hash;
+                }
+            
+            public:
+                // Constructor to initialize the hash table
+                HashTable(int size) {
+                    capacity = size;
+                    table.resize(size);
+                }
+            
+                // Function to insert an emission record
+                void insert(string industryID, string emissionsData) {
+                    int index = hashFunction(industryID);
+                    for (EmissionRecord& record : table[index]) {
+                        if (record.industryID == industryID) {
+                            // Update existing record
+                            record.emissionsData = emissionsData;
+                            cout << "Updated record for " << industryID << endl;
+                            return;
+                        }
+                    }
+                    // Insert new record
+                    table[index].push_back({industryID, emissionsData});
+                    cout << "Inserted record for " << industryID << endl;
+                }
+            
+                // Function to search for emissions data by industryID
+                string search(string industryID) {
+                    int index = hashFunction(industryID);
+                    for (EmissionRecord& record : table[index]) {
+                        if (record.industryID == industryID) {
+                            return record.emissionsData;
+                        }
+                    }
+                    return "Record not found";
+                }
+            
+                // Function to delete an emission record
+                void remove(string industryID) {
+                    int index = hashFunction(industryID);
+                    auto& chain = table[index];
+                    for (auto it = chain.begin(); it != chain.end(); ++it) {
+                        if (it->industryID == industryID) {
+                            chain.erase(it);
+                            cout << "Deleted record for " << industryID << endl;
+                            return;
+                        }
+                    }
+                    cout << "Record not found for " << industryID << endl;
+                }
+            
+                // Function to print all records in the hash table
+                void printTable() {
+                    for (int i = 0; i < capacity; i++) {
+                        cout << "Bucket " << i << ": ";
+                        for (EmissionRecord& record : table[i]) {
+                            cout << "[" << record.industryID << ": " << record.emissionsData << "] ";
+                        }
+                        cout << endl;
+                    }
+                }
+            };
+            
+            // Main Function
+            int main() {
+                HashTable hashTable(10); // Initialize hash table with 10 buckets
+            
+                // Insert emission records
+                hashTable.insert("FactoryA", "CO2=100kg, SO2=50kg");
+                hashTable.insert("FactoryB", "CO2=150kg, NOx=30kg");
+                hashTable.insert("FactoryC", "CO2=200kg, PM2.5=20kg");
+            
+                // Search for a record
+                cout << "Emissions Data for FactoryB: " << hashTable.search("FactoryB") << endl;
+            
+                // Update an existing record
+                hashTable.insert("FactoryB", "CO2=120kg, NOx=25kg");
+            
+                // Delete a record
+                hashTable.remove("FactoryC");
+            
+                // Print all records
+                cout << "Hash Table Contents:" << endl;
+                hashTable.printTable();
+            
+                return 0;
+            }
+
+</code></pre>
+
+        <h4>SDGs Addressed</h4>
+        <div class="sdg-list">
+            <div class="sdg">
+                <strong>SDG 9:</strong> Industry, Innovation, and Infrastructure
+            </div>
+            <div class="sdg">
+                <strong>SDG 11:</strong> Sustainable Cities and Communities
+            </div>
+            <div class="sdg">
+                <strong>SDG 12:</strong> Responsible Consumption and Production
+            </div>
+            <div class="sdg">
+                <strong>SDG 13:</strong> Climate Action
+            </div>
+        </div>
+    </div>
+</body>
+</html>

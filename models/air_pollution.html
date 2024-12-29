@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Pollution Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #060607;
+            color: #fff6f6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #060606;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #1056bf;
+            font-size: 4em;
+        }
+        h2 {
+            text-align: left;
+            color: #3d8bd8;
+            font-size: 2em;
+        }
+        h3 {
+            text-align: left;
+            color: #2684e3;
+            font-size: 2em;
+        }
+        h4 {
+            text-align: center;
+            color: #1a98c6;
+            font-size: 2em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        pre {
+            background: #272424;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .sdg-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .sdg {
+            background: #272424;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Air Pollution Management</h1>
+        
+        <h2>Description</h2>
+        <p>The business idea focuses on developing affordable, AI-powered air purifiers for households and offices. These devices offer real-time air quality monitoring and filtration, providing a solution to air pollution problems.</p>
+
+        <h2>Techniques Used</h2>
+        <ul>
+            <li><strong>BST:</strong> To efficiently store and retrieve pollutant levels for monitoring trends over time.</li>
+            <li><strong>Graph:</strong> To model the airflow network within the purifier or represent sensor nodes and connections in a smart home environment.</li>
+        </ul>
+
+        <h2>Pseudocode</h2>
+
+        <h3>BST (Insertion and Deletion)</h3>
+        <pre><code>
+            #include &lt;iostream&gt;
+            #include &lt;string&gt;
+            using namespace std;
+            
+            // Structure to represent a node in the BST
+            struct AirPurifier {
+                int purifierID;           // Unique ID for the air purifier
+                string location;          // Location of the purifier (household/office)
+                float airQualityIndex;    // Real-time Air Quality Index (AQI) monitored by the purifier
+                AirPurifier* left;        // Pointer to the left child
+                AirPurifier* right;       // Pointer to the right child
+            
+                // Constructor to initialize a new node
+                AirPurifier(int id, string loc, float aqi) {
+                    purifierID = id;
+                    location = loc;
+                    airQualityIndex = aqi;
+                    left = nullptr;
+                    right = nullptr;
+                }
+            };
+            
+            // Class to represent the BST
+            class AirPurifierBST {
+            private:
+                AirPurifier* root; // Root node of the BST
+            
+                // Helper function for inserting a new node
+                AirPurifier* insert(AirPurifier* node, int id, string loc, float aqi) {
+                    if (node == nullptr) {
+                        return new AirPurifier(id, loc, aqi); // Create a new node
+                    }
+                    if (id < node->purifierID) {
+                        node->left = insert(node->left, id, loc, aqi); // Insert in the left subtree
+                    } else if (id > node->purifierID) {
+                        node->right = insert(node->right, id, loc, aqi); // Insert in the right subtree
+                    }
+                    return node;
+                }
+            
+                // Helper function for searching a node
+                AirPurifier* search(AirPurifier* node, int id) {
+                    if (node == nullptr || node->purifierID == id) {
+                        return node; // Return the node if found or nullptr if not found
+                    }
+                    if (id < node->purifierID) {
+                        return search(node->left, id); // Search in the left subtree
+                    }
+                    return search(node->right, id); // Search in the right subtree
+                }
+            
+                // Helper function for in-order traversal
+                void inOrder(AirPurifier* node) {
+                    if (node != nullptr) {
+                        inOrder(node->left); // Traverse left subtree
+                        cout << "Purifier ID: " << node->purifierID
+                             << ", Location: " << node->location
+                             << ", AQI: " << node->airQualityIndex << endl;
+                        inOrder(node->right); // Traverse right subtree
+                    }
+                }
+            
+                // Helper function to find the minimum node in the BST
+                AirPurifier* findMin(AirPurifier* node) {
+                    while (node && node->left != nullptr) {
+                        node = node->left;
+                    }
+                    return node;
+                }
+            
+                // Helper function for deleting a node
+                AirPurifier* remove(AirPurifier* node, int id) {
+                    if (node == nullptr) return node; // Node not found
+            
+                    if (id < node->purifierID) {
+                        node->left = remove(node->left, id); // Delete from left subtree
+                    } else if (id > node->purifierID) {
+                        node->right = remove(node->right, id); // Delete from right subtree
+                    } else {
+                        // Node to be deleted found
+                        if (node->left == nullptr) {
+                            AirPurifier* temp = node->right;
+                            delete node;
+                            return temp;
+                        } else if (node->right == nullptr) {
+                            AirPurifier* temp = node->left;
+                            delete node;
+                            return temp;
+                        }
+            
+                        // Node with two children
+                        AirPurifier* temp = findMin(node->right); // Find the smallest node in the right subtree
+                        node->purifierID = temp->purifierID;
+                        node->location = temp->location;
+                        node->airQualityIndex = temp->airQualityIndex;
+                        node->right = remove(node->right, temp->purifierID); // Remove the successor node
+                    }
+                    return node;
+                }
+            
+            public:
+                // Constructor to initialize the BST
+                AirPurifierBST() {
+                    root = nullptr;
+                }
+            
+                // Function to insert a new air purifier record
+                void insert(int id, string loc, float aqi) {
+                    root = insert(root, id, loc, aqi);
+                }
+            
+                // Function to search for an air purifier by ID
+                void search(int id) {
+                    AirPurifier* result = search(root, id);
+                    if (result) {
+                        cout << "Found Purifier - ID: " << result->purifierID
+                             << ", Location: " << result->location
+                             << ", AQI: " << result->airQualityIndex << endl;
+                    } else {
+                        cout << "Purifier with ID " << id << " not found." << endl;
+                    }
+                }
+            
+                // Function to delete an air purifier record by ID
+                void remove(int id) {
+                    root = remove(root, id);
+                    cout << "Purifier with ID " << id << " removed (if it existed)." << endl;
+                }
+            
+                // Function to display all air purifiers in sorted order
+                void display() {
+                    cout << "Air Purifier Records (Sorted by ID):" << endl;
+                    inOrder(root);
+                }
+            };
+            
+            // Main Function
+            int main() {
+                AirPurifierBST
+</code></pre>
+
+        <h3>Graph (Dijkstra's Algorithm)</h3>
+        <pre><code>
+                #include &lt;iostream&gt;
+                #include &lt;vector&gt;
+                #include &lt;queue&gt;
+                #include &lt;climits&gt;// For INT_MAX
+                using namespace std;
+                
+                // Pair to represent (cost, vertex)
+                typedef pair<int, int> pii;
+                
+                // Class to represent the graph
+                class AirPurifierGraph {
+                private:
+                    int numStations;                          // Number of nodes (air purifiers/stations)
+                    vector<vector<pii>> adjList;              // Adjacency list: adjList[u] = {(v, weight), ...}
+                
+                public:
+                    // Constructor
+                    AirPurifierGraph(int n) {
+                        numStations = n;
+                        adjList.resize(n);
+                    }
+                
+                    // Function to add an edge between two stations
+                    void addEdge(int u, int v, int weight) {
+                        adjList[u].push_back({v, weight});    // Directed edge from u to v
+                        adjList[v].push_back({u, weight});    // Undirected edge (if applicable)
+                    }
+                
+                    // Function to run Dijkstra's algorithm
+                    void dijkstra(int startNode) {
+                        vector<int> dist(numStations, INT_MAX);    // Distance from startNode to each node
+                        priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-heap to store (cost, vertex)
+                
+                        // Start from the startNode
+                        dist[startNode] = 0;
+                        pq.push({0, startNode});
+                
+                        while (!pq.empty()) {
+                            int currentCost = pq.top().first;
+                            int currentNode = pq.top().second;
+                            pq.pop();
+                
+                            // Traverse neighbors of the current node
+                            for (auto neighbor : adjList[currentNode]) {
+                                int nextNode = neighbor.first;
+                                int edgeWeight = neighbor.second;
+                
+                                // Relax the edge
+                                if (dist[currentNode] + edgeWeight < dist[nextNode]) {
+                                    dist[nextNode] = dist[currentNode] + edgeWeight;
+                                    pq.push({dist[nextNode], nextNode});
+                                }
+                            }
+                        }
+                
+                        // Print the shortest distances from startNode
+                        cout << "Shortest distances from node " << startNode << " to all other nodes:" << endl;
+                        for (int i = 0; i < numStations; i++) {
+                            if (dist[i] == INT_MAX) {
+                                cout << "Node " << i << ": Unreachable" << endl;
+                            } else {
+                                cout << "Node " << i << ": " << dist[i] << endl;
+                            }
+                        }
+                    }
+                };
+                
+                // Main Function
+                int main() {
+                    int numStations = 5; // Example: 5 air purifiers/stations
+                    AirPurifierGraph graph(numStations);
+                
+                    // Add edges between stations (e.g., purifier1, purifier2, weight)
+                    graph.addEdge(0, 1, 10); // Edge between Station 0 and 1 with weight 10
+                    graph.addEdge(0, 2, 5);  // Edge between Station 0 and 2 with weight 5
+                    graph.addEdge(1, 2, 2);  // Edge between Station 1 and 2 with weight 2
+                    graph.addEdge(1, 3, 1);  // Edge between Station 1 and 3 with weight 1
+                    graph.addEdge(2, 3, 9);  // Edge between Station 2 and 3 with weight 9
+                    graph.addEdge(3, 4, 4);  // Edge between Station 3 and 4 with weight 4
+                
+                    int startNode = 0; // Start from Station 0
+                    graph.dijkstra(startNode);
+                
+                    return 0;
+                }
+
+</code></pre>
+
+        <h4>SDGs Addressed</h4>
+        <div class="sdg-list">
+            <div class="sdg">
+                <strong>SDG 3:</strong> Good Health and Well-being
+            </div>
+            <div class="sdg">
+                <strong>SDG 11:</strong> Sustainable Cities and Communities
+            </div>
+        </div>
+    </div>
+</body>
+</html>

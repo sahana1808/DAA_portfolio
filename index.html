@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio</title>
+        <link rel="shortcut icon" type="image/png" href="ic.png">
+        <link rel="stylesheet" href='./files/style.css'>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+        
+    </head>
+    <body>
+        
+        <header class="header">
+            <a href="#" class="logo">Portfolio</a>
+            <nav class="navbar" id="myLinks">
+                <a href="#Home" style="--i:1" class="active">Home</a>
+                <a href="#About" style="--i:2">About</a>
+                <a href="#course" style="--i:3">Course Reflection</a> <!-- Changed href to #course -->
+                <a href="#Team" style="--i:4">Team Information</a>
+                <a href="#project-overview" style="--i:5">Project Overview</a> <!-- New navigation link -->
+                <a href="#Contact" style="--i:6">Business models</a>
+            </nav>
+        </header>
+        
+        
+        <section class="home" id="Home">
+            <div class="home-content">
+                <h3>Hello, Welcome To</h3>
+                <h1>AHMAD NAGAR</h1>
+                <h4 style="--i:6">Smart City <br> Design Project <span class="text"></span></h4>
+                <div class="img">
+                    <img src="./img/cropedic.jpg" class="responsive">
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="about" id="About">
+                <div class="about-img">
+                    <img src="./img/midclg.jpg" class="abt-res">
+                </div>
+                <div class="about-text">
+                    <h2>About <span>Me</span></h2>
+                    <p>I'm Sahana B Sulegavi, an aspiring engineer with a passion for innovation and technology.
+                        Currently in my second year pursuing computer science engineering at KLE Technological University, Hubli. 
+                        Some of my hobbies are reading books and watching movies.
+                        The purpose of this portfolio is to keep track of my learning process and skills development over time.<br>
+                        <br>
+                    </p>
+        
+                    <div class="home-sci">
+                        <a href="https://www.linkedin.com/in/sahana-b-sulegavi-b68a77327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"style="--i:7" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                        <a href="https://instagram.com/sahana.b.s_"style="--i:8" target="_blank"><i class='bx bxl-instagram' ></i></a>
+                        <a href="https://github.com/Sahanabs01/DAA_Portfolio.git"style="--i:10" target="_blank"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="course-reflection" id="course">
+            <div class="topics-heading"> <!-- id is now 'course' to match the href -->
+            <h2>Course Reflection</h2>
+            <div id="course-introduction">
+                <div class="topics-main"></div>
+                <h3>Introduction</h3>
+                <p>The Data Structures and Algorithms (DSA) course has been a transformative journey in understanding the fundamental building blocks of computational problem-solving. Throughout the course, I gained a deeper appreciation for the critical role that well-designed data structures and efficient algorithms play in developing scalable, efficient, and robust software solutions.This course has greatly expanded my knowledge and skills.</p>
+            </div>
+            <div id="topics-covered">
+                <h3><strong>Topics Covered</strong></h3>
+                <div class="topics-container">
+                    <div class="column">
+                        <table border="1" cellspacing="0" cellpadding="10" style="margin: 0 auto;">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Algorithms/Structures</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Linear and Non Linear Data Structures</strong></td>
+                                    <td>
+                                        <ul>
+                                            <li>Arrays</li>
+                                            <li>Linked List</li>
+                                            <li>Stacks and Queues</li>
+                                            <li>Trees:</li>
+                                            <ul>
+                                                <li>Binary Trees</li>
+                                                <li>2-3 Trees</li>
+                                                <li>Lookup Table</li>
+                                                <li>Tries</li>
+                                                <li>AVL Trees</li>
+                                                <li>Red-Black Trees</li>
+                                                <li>Skip Lists</li>
+                                                <li>Segment Trees</li>
+                                            </ul>
+                                            <li>Graphs (Weighted/Unweighted, Directed/Undirected)</li>
+                                            <li>Heaps</li>
+                                            <li>HashMaps</li>
+                                            <li>Union-Find (Disjoint Set Union)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sorting Algorithms</strong></td>
+                                    <td>
+                                        <ul>
+                                            <li>Bubble Sort</li>
+                                            <li>Insertion Sort</li>
+                                            <li>Selection Sort</li>
+                                            <li>Merge Sort</li>
+                                            <li>Quick Sort</li>
+                                            <li>Heap Sort</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>String Matching Algorithms</strong></td>
+                                    <td>
+                                        <ul>
+                                            <li>Brute Force</li>
+                                            <li>Boyer-Moore</li>
+                                            <li>KMP</li>
+                                            <li>Rabin-Karp</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Graph Algorithms</strong></td>
+                                    <td>
+                                        <ul>
+                                            <li>Breadth-First Search (BFS)</li>
+                                            <li>Depth-First Search (DFS)</li>
+                                            <li>Kruskal's Algorithm</li>
+                                            <li>Dijkstra's Algorithm</li>
+                                            <li>Bellman-Ford Algorithm</li>
+                                            <li>Floyd-Warshall Algorithm</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Backtracking Algorithms</strong></td>
+                                    <td>
+                                        <ul>
+                                            <li>N-Queen Problem</li>
+                                            <li>Subset Generation</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+            </div>
+            <div id="real-time-examples">
+                <h3>Real-Time Examples</h3>
+                <div class="topics-real"></div>
+                <p><strong>DFS:</strong> DFS can be used to navigate through a maze. Starting from the entrance, DFS explores as far as possible along each branch before backtracking. This method ensures that all possible paths are explored until the exit is found.</p>
+                <p><strong>BFS:</strong> BFS can be used to find the shortest path between two users in a social network. Starting from a user, BFS explores all immediate connections (friends) before moving on to their connections (friends of friends), and so on.</p>
+                <p><strong>Heap:</strong> Used in priority queues for task scheduling in operating systems, ensuring high-priority tasks are executed first.</p>
+                <p><strong>BST:</strong> Employed in database indexing to allow efficient searching, insertion, and deletion of records.</p>
+            </div>
+        </section>
+        
+        
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Information</title>
+    <style>
+        /* Center the table container */
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+        }
+
+        /* Style the table */
+        .team-table {
+            width: 80%; /* Adjust width as needed */
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 1.2rem; /* Increase font size */
+        }
+
+        /* Style table headers */
+        .team-table thead th {
+            background-color: #100b0b;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        /* Style table cells */
+        .team-table td, 
+        .team-table th {
+            padding: 15px;
+            border: 2px solid #0f0f0f;
+        }
+
+        /* Add a hover effect */
+        .team-table tbody tr:hover {
+            background-color: #38373f;
+        }
+    </style>
+</head>
+<body>
+    <section id="Team">
+        <div id="portfolio" class="services">
+            <div class="main-text" id="serv">
+                <h2>My <span>Team</h2>
+            </div>
+            <!-- Table Container -->
+            <div class="table-container">
+                <table class="team-table" border="2">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Roll No</th>
+                            <th>USN</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>419</td>
+                            <td>01FE23BCS300</td>
+                            <td><a href=""target="_self">Rashmi M Mathapati</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>448</td>
+                            <td>01FE23BCS301</td>
+                            <td><a href="https://github.com/Sahanabs01/DAA_Portfolio.git"target="_self">Sahana B Sulegavi</a></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>446</td>
+                            <td>01FE23BCS282</td>
+                            <td><a href="https://github.com/GeetaBiradar63/geeta_portfolio.github.io"target="_self">Gurulingamma V Biradar</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>431</td>
+                            <td>01FE23BCS198</td>
+                            <td><a href=""target="_self">Shrutika Ambure</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+        <!-- Project Overview Section -->
+<section id="project-overview">
+    
+    <h2>Project Overview</h2>
+    
+    <!-- Introduction Section -->
+    <div id="project-introduction">
+        <h3>Introduction</h3>
+        <p>
+            Ahmad Nagar is a new smart city being planned for an area of 1500 square kilometers. 
+            The design suggests a balance between functionality, accessibility, and sustainability. 
+            This smart city has a special pollution control system to promote sustainability and improved human health.
+        </p>
+    </div>
+    
+    <!-- Land Distribution Section -->
+    <div id="land-distribution">
+        <h3>Land Distribution Table</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Zone</th>
+                    <th>Description</th>
+                    <th>Number of Buildings/Facilities</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Residential Zone</td>
+                    <td>27</td>
+                    <td>
+                        <ul>
+                            <li>Apartment buildings</li>
+                            <li>Single-family homes</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Commercial Zone</td>
+                    <td>16</td>
+                    <td>
+                        <ul>
+                            <li>Office buildings</li>
+                            <li>Shopping malls</li>
+                            <li>Restaurants</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Educational Zone</td>
+                    <td>5</td>
+                    <td>
+                        <ul>
+                            <li>Schools</li>
+                            <li>Colleges</li>
+                            <li>University</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Industrial Zone</td>
+                    <td>3</td>
+                    <td>
+                        <ul>
+                            <li>Factories</li>
+                            <li>Warehouses</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Healthcare Zone</td>
+                    <td>2</td>
+                    <td>
+                        <ul>
+                            <li>Hospitals</li>
+                            <li>Clinics</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Green Spaces</td>
+                    <td>4</td>
+                    <td>
+                        <ul>
+                            <li>Parks</li>
+                            <li>Gardens</li>
+                            <li>Forest</li>
+                            <li>Bird Sanctuary</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Recreational and Cultural Spaces</td>
+                    <td>3</td>
+                    <td>
+                        <ul>
+                            <li>Cultural Centers</li>
+                            <li>Sports Complexes</li>
+                            <li>Theaters</li>
+                            <li>Libraries</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Transportation Infrastructure</td>
+                    <td>11</td>
+                    <td>
+                        <ul>
+                            <li>Roads, Bike Lanes, Pedestrian Walkways, and Parking Spaces</li>
+                            <li>Smart Public Transport Hubs (Airport, Railway) and Electric Vehicle Charging Stations</li>
+                            <li>Toll Plaza</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+        <section class="contacts" id="Contact">
+            <div class="contact-text">
+                <h2>Business <span>Models</span></h2>
+                <h3>Pollution Management System</h3>
+                <li><a href="./models/air_pollution.html"target="_self"><h4>Air Pollution Management System</h4></a></li>
+                <li><a href="./models/industrial_emission.html"target="_self"><h4>Emission Tracking</h4></a></li>
+
+                
+            </div>
+            
+        </section>
+        
+        <div class="last-text">
+            <p>Developed by Sahana B S <i class='bx bx-copyright' style="color: white;"></i> 2024</p>
+        </div>
+        <a href="#Home" class="top"><i class='bx bx-up-arrow-alt' ></i></a>
+
+        <script src="./files/script.js"></script>
+    </body>  
+</html>

@@ -5,7 +5,7 @@
 - 🔭 I’m currently pursuing **Second Year Engineering**
 
 
-- 👨‍💻 My portfolio website [https://github.com/sahana1808/DAA_portfolio.git](https://github.com/sahana1808/DAA_portfolio.git)
+- 👨‍💻 My portfolio website [https://sahana1808.github.io/DAA_Portfolio/](https://sahana1808.github.io/DAA_Portfolio/)
 
 
 - 📫 How to reach me **sahanabs1808@gmail.com**

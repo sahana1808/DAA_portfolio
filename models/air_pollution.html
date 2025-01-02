@@ -92,7 +92,7 @@
                 float airQualityIndex;    // Real-time Air Quality Index (AQI) monitored by the purifier
                 AirPurifier* left;        // Pointer to the left child
                 AirPurifier* right;       // Pointer to the right child
-            
+
                 // Constructor to initialize a new node
                 AirPurifier(int id, string loc, float aqi) {
                     purifierID = id;
@@ -102,12 +102,12 @@
                     right = nullptr;
                 }
             };
-            
+
             // Class to represent the BST
             class AirPurifierBST {
             private:
                 AirPurifier* root; // Root node of the BST
-            
+
                 // Helper function for inserting a new node
                 AirPurifier* insert(AirPurifier* node, int id, string loc, float aqi) {
                     if (node == nullptr) {
@@ -120,7 +120,7 @@
                     }
                     return node;
                 }
-            
+
                 // Helper function for searching a node
                 AirPurifier* search(AirPurifier* node, int id) {
                     if (node == nullptr || node->purifierID == id) {
@@ -131,7 +131,7 @@
                     }
                     return search(node->right, id); // Search in the right subtree
                 }
-            
+
                 // Helper function for in-order traversal
                 void inOrder(AirPurifier* node) {
                     if (node != nullptr) {
@@ -142,7 +142,7 @@
                         inOrder(node->right); // Traverse right subtree
                     }
                 }
-            
+
                 // Helper function to find the minimum node in the BST
                 AirPurifier* findMin(AirPurifier* node) {
                     while (node && node->left != nullptr) {
@@ -150,11 +150,11 @@
                     }
                     return node;
                 }
-            
+
                 // Helper function for deleting a node
                 AirPurifier* remove(AirPurifier* node, int id) {
                     if (node == nullptr) return node; // Node not found
-            
+
                     if (id < node->purifierID) {
                         node->left = remove(node->left, id); // Delete from left subtree
                     } else if (id > node->purifierID) {
@@ -170,7 +170,7 @@
                             delete node;
                             return temp;
                         }
-            
+
                         // Node with two children
                         AirPurifier* temp = findMin(node->right); // Find the smallest node in the right subtree
                         node->purifierID = temp->purifierID;
@@ -180,18 +180,18 @@
                     }
                     return node;
                 }
-            
+
             public:
                 // Constructor to initialize the BST
                 AirPurifierBST() {
                     root = nullptr;
                 }
-            
+
                 // Function to insert a new air purifier record
                 void insert(int id, string loc, float aqi) {
                     root = insert(root, id, loc, aqi);
                 }
-            
+
                 // Function to search for an air purifier by ID
                 void search(int id) {
                     AirPurifier* result = search(root, id);
@@ -203,23 +203,53 @@
                         cout << "Purifier with ID " << id << " not found." << endl;
                     }
                 }
-            
+
                 // Function to delete an air purifier record by ID
                 void remove(int id) {
                     root = remove(root, id);
                     cout << "Purifier with ID " << id << " removed (if it existed)." << endl;
                 }
-            
+
                 // Function to display all air purifiers in sorted order
                 void display() {
                     cout << "Air Purifier Records (Sorted by ID):" << endl;
                     inOrder(root);
                 }
             };
-            
+
             // Main Function
             int main() {
-                AirPurifierBST
+    AirPurifierBST bst;
+
+    // Insert air purifier records
+    bst.insert(101, "Office", 42.5);
+    bst.insert(202, "Living Room", 35.7);
+    bst.insert(303, "Bedroom", 50.2);
+    bst.insert(404, "Kitchen", 65.3);
+    bst.insert(505, "Garage", 72.1);
+
+    // Display all air purifiers
+    bst.display();
+
+    // Search for an air purifier by ID
+    cout << "\nSearching for purifier with ID 202:" << endl;
+    bst.search(202);
+
+    // Attempt to search for a non-existing purifier
+    cout << "\nSearching for purifier with ID 999:" << endl;
+    bst.search(999);
+
+    // Delete an air purifier record
+    cout << "\nDeleting purifier with ID 202:" << endl;
+    bst.remove(202);
+
+    // Display all air purifiers again to verify deletion
+    cout << "\nAir Purifier Records after deletion:" << endl;
+    bst.display();
+
+    return 0;
+}
+
 </code></pre>
 
         <h3>Graph (Dijkstra's Algorithm)</h3>

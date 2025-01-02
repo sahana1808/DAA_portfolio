@@ -99,110 +99,111 @@
             #include &lt;string&gt;
             #include &lt;ctime&gt;
             #include &lt;sstream&gt;
-            #include &lt;openssl/sha.h&gt; // Include a library for hash functions
+            
             
             using namespace std;
-            
-            // Structure to represent a Block in the blockchain
-            struct Block {
-                int blockID;                 // Block ID
-                string timestamp;            // Timestamp for when the block is created
-                string emissionsData;        // Emission details (e.g., carbon output, pollutants)
-                string previousHash;         // Hash of the previous block
-                string blockHash;            // Hash of this block
-                Block* next;                 // Pointer to the next block (Linked List structure)
-            
-                // Constructor to initialize a new block
-                Block(int id, string data, string prevHash) {
-                    blockID = id;
-                    emissionsData = data;
-                    previousHash = prevHash;
-                    timestamp = getCurrentTime();
-                    blockHash = calculateHash(); // Generate hash for the block
-                    next = nullptr;
-                }
-            
-                // Function to get the current time
-                string getCurrentTime() {
-                    time_t now = time(0);
-                    char* dt = ctime(&now);
-                    return string(dt);
-                }
-            
-                // Function to calculate the block's hash
-                string calculateHash() {
-                    stringstream ss;
-                    ss << blockID << timestamp << emissionsData << previousHash;
-                    string input = ss.str();
-            
-                    // Generate a SHA256 hash (example, replace with library-based implementation)
-                    unsigned char hash[SHA256_DIGEST_LENGTH];
-                    SHA256((unsigned char*)input.c_str(), input.size(), hash);
-            
-                    stringstream hashString;
-                    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
-                        hashString << hex << (int)hash[i];
-                    }
-            
-                    return hashString.str();
-                }
-            };
-            
-            // Class to represent the Blockchain (Linked List of Blocks)
-            class Blockchain {
-            private:
-                Block* head; // Head of the blockchain
-            
-            public:
-                Blockchain() {
-                    head = nullptr;
-                }
-            
-                // Function to add a new block
-                void addBlock(string emissionsData) {
-                    string prevHash = head ? head->blockHash : "0"; // Genesis block has "0" as previous hash
-                    Block* newBlock = new Block(getNextBlockID(), emissionsData, prevHash);
-            
-                    newBlock->next = head; // Add the block to the front (linked list style)
-                    head = newBlock;
-            
-                    cout << "Block added: " << newBlock->blockID << ", Hash: " << newBlock->blockHash << endl;
-                }
-            
-                // Function to print the blockchain
-                void printBlockchain() {
-                    Block* temp = head;
-                    while (temp != nullptr) {
-                        cout << "Block ID: " << temp->blockID << endl;
-                        cout << "Timestamp: " << temp->timestamp;
-                        cout << "Emissions Data: " << temp->emissionsData << endl;
-                        cout << "Previous Hash: " << temp->previousHash << endl;
-                        cout << "Current Hash: " << temp->blockHash << endl;
-                        cout << "----------------------------------" << endl;
-                        temp = temp->next;
-                    }
-                }
-            
-                // Helper to generate the next block ID
-                int getNextBlockID() {
-                    return head ? head->blockID + 1 : 1;
-                }
-            };
-            
-            // Main function
-            int main() {
-                Blockchain blockchain;
-            
-                // Add sample blocks
-                blockchain.addBlock("Factory A: CO2 = 100kg, NOx = 50kg");
-                blockchain.addBlock("Factory B: CO2 = 150kg, SO2 = 30kg");
-                blockchain.addBlock("Factory C: CO2 = 200kg, PM2.5 = 20kg");
-            
-                // Print the blockchain
-                blockchain.printBlockchain();
-            
-                return 0;
-            }
+
+// Simple hash function for demonstration purposes (not secure like SHA256)
+string simpleHash(string input) {
+    unsigned long hash = 5381;
+    for (char c : input) {
+        hash = ((hash << 5) + hash) + c; // hash * 33 + c
+    }
+    stringstream ss;
+    ss << hex << hash;
+    return ss.str();
+}
+
+// Structure to represent a Block in the blockchain
+struct Block {
+    int blockID;                 // Block ID
+    string timestamp;            // Timestamp for when the block is created
+    string emissionsData;        // Emission details (e.g., carbon output, pollutants)
+    string previousHash;         // Hash of the previous block
+    string blockHash;            // Hash of this block
+    Block* next;                 // Pointer to the next block (Linked List structure)
+
+    // Constructor to initialize a new block
+    Block(int id, string data, string prevHash) {
+        blockID = id;
+        emissionsData = data;
+        previousHash = prevHash;
+        timestamp = getCurrentTime();
+        blockHash = calculateHash(); // Generate hash for the block
+        next = nullptr;
+    }
+
+    // Function to get the current time
+    string getCurrentTime() {
+        time_t now = time(0);
+        char* dt = ctime(&now);
+        return string(dt);
+    }
+
+    // Function to calculate the block's hash
+    string calculateHash() {
+        stringstream ss;
+        ss << blockID << timestamp << emissionsData << previousHash;
+        return simpleHash(ss.str());
+    }
+};
+
+// Class to represent the Blockchain (Linked List of Blocks)
+class Blockchain {
+private:
+    Block* head; // Head of the blockchain
+
+public:
+    Blockchain() {
+        head = nullptr;
+    }
+
+    // Function to add a new block
+    void addBlock(string emissionsData) {
+        string prevHash = head ? head->blockHash : "0"; // Genesis block has "0" as previous hash
+        Block* newBlock = new Block(getNextBlockID(), emissionsData, prevHash);
+
+        newBlock->next = head; // Add the block to the front (linked list style)
+        head = newBlock;
+
+        cout << "Block added: " << newBlock->blockID << ", Hash: " << newBlock->blockHash << endl;
+    }
+
+    // Function to print the blockchain
+    void printBlockchain() {
+        Block* temp = head;
+        while (temp != nullptr) {
+            cout << "Block ID: " << temp->blockID << endl;
+            cout << "Timestamp: " << temp->timestamp;
+            cout << "Emissions Data: " << temp->emissionsData << endl;
+            cout << "Previous Hash: " << temp->previousHash << endl;
+            cout << "Current Hash: " << temp->blockHash << endl;
+            cout << "----------------------------------" << endl;
+            temp = temp->next;
+        }
+    }
+
+    // Helper to generate the next block ID
+    int getNextBlockID() {
+        return head ? head->blockID + 1 : 1;
+    }
+};
+
+// Main function
+int main() {
+    Blockchain blockchain;
+
+    // Add sample blocks
+    blockchain.addBlock("Factory A: CO2 = 100kg, NOx = 50kg");
+    blockchain.addBlock("Factory B: CO2 = 150kg, SO2 = 30kg");
+    blockchain.addBlock("Factory C: CO2 = 200kg, PM2.5 = 20kg");
+
+    // Print the blockchain
+    blockchain.printBlockchain();
+
+    return 0;
+}
+
 </code></pre>
 
         <h3>Hash Table</h3>

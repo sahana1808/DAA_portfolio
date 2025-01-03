@@ -300,6 +300,12 @@ h4{
     font-size: 2em; /* Further increase size for h2 and h3 */
     
 }
+h8{
+    text-align: left;
+    color: #3acad7;
+    font-size: 3em; /* Further increase size for h2 and h3 */
+    margin: 10px 0; /* Add margin for better spacing */
+}
 
 
 p {

@@ -96,13 +96,13 @@
 
         <h3>Linked List</h3>
         <pre><code>
-            #include &lt;iostream&gt;
-            #include &lt;string&gt;
-            #include &lt;ctime&gt;
-            #include &lt;sstream&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;ctime&gt;
+#include &lt;sstream&gt;
             
             
-            using namespace std;
+using namespace std;
 
 // Simple hash function for demonstration purposes (not secure like SHA256)
 string simpleHash(string input) {
@@ -194,132 +194,381 @@ public:
 int main() {
     Blockchain blockchain;
 
-    // Add sample blocks
-    blockchain.addBlock("Factory A: CO2 = 100kg, NOx = 50kg");
-    blockchain.addBlock("Factory B: CO2 = 150kg, SO2 = 30kg");
-    blockchain.addBlock("Factory C: CO2 = 200kg, PM2.5 = 20kg");
+    int choice;
+    do {
+        cout << "\n--- Blockchain Menu ---" << endl;
+        cout << "1. Add a new block" << endl;
+        cout << "2. Print the blockchain" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    // Print the blockchain
-    blockchain.printBlockchain();
+        cin.ignore(); // Clear the input buffer
+
+        switch (choice) {
+        case 1: {
+            string emissionsData;
+            cout << "Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg): ";
+            getline(cin, emissionsData);
+            blockchain.addBlock(emissionsData);
+            break;
+        }
+        case 2:
+            blockchain.printBlockchain();
+            break;
+        case 3:
+            cout << "Exiting..." << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 3);
 
     return 0;
 }
+//sample input and output
+--- Blockchain Menu ---
+1. Add a new block
+2. Print the blockchain
+3. Exit
+Enter your choice: 1
+Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg): Factory A:CO2 = 120 kg,NOx = 60kg
+Block added: 1, Hash: 53fd62d3
+
+--- Blockchain Menu ---
+1. Add a new block
+2. Print the blockchain
+3. Exit
+Enter your choice: 1
+Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg):  Factory B:CO2 = 200 kg,SO2 = 40kg
+Block added: 2, Hash: 3be53bf0
+
+--- Blockchain Menu ---
+1. Add a new block
+2. Print the blockchain
+3. Exit
+Enter your choice: 2
+Block ID: 2
+Timestamp: Sat Jan 04 01:48:12 2025
+Emissions Data:  Factory B:CO2 = 200 kg,SO2 = 40kg
+Previous Hash: 53fd62d3
+Current Hash: 3be53bf0
+----------------------------------
+Block ID: 1
+Timestamp: Sat Jan 04 01:46:52 2025
+Emissions Data: Factory A:CO2 = 120 kg,NOx = 60kg
+Previous Hash: 0
+Current Hash: 53fd62d3
+----------------------------------
+
+--- Blockchain Menu ---
+1. Add a new block
+2. Print the blockchain
+3. Exit
+Enter your choice: 3
+Exiting...
+
+Process returned 0 (0x0)   execution time : 209.770 s
+Press any key to continue.
 
 </code></pre>
 
         <h3>Hash Table</h3>
         <pre><code>
-            #include &lt;iostream&gt;
-            #include &lt;vector&gt;
-            #include &lt;list&gt;
-            #include &lt;string&gt;
-            using namespace std;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+using namespace std;
             
-            // Hash Table Entry Structure
-            struct EmissionRecord {
-                string industryID;      // Unique ID for the industry
-                string emissionsData;   // Emission details (e.g., CO2, SO2 levels)
-            };
-            
-            // Hash Table Class
-            class HashTable {
-            private:
-                vector<list<EmissionRecord>> table; // Array of linked lists (chaining for collision resolution)
-                int capacity;                       // Size of the hash table
-            
-                // Hash function to map industryID to an index
-                int hashFunction(string industryID) {
-                    int hash = 0;
-                    for (char c : industryID) {
-                        hash = (hash * 31 + c) % capacity; // Simple polynomial hash
-                    }
-                    return hash;
-                }
-            
-            public:
-                // Constructor to initialize the hash table
-                HashTable(int size) {
-                    capacity = size;
-                    table.resize(size);
-                }
-            
-                // Function to insert an emission record
-                void insert(string industryID, string emissionsData) {
-                    int index = hashFunction(industryID);
-                    for (EmissionRecord& record : table[index]) {
-                        if (record.industryID == industryID) {
-                            // Update existing record
-                            record.emissionsData = emissionsData;
-                            cout << "Updated record for " << industryID << endl;
-                            return;
-                        }
-                    }
-                    // Insert new record
-                    table[index].push_back({industryID, emissionsData});
-                    cout << "Inserted record for " << industryID << endl;
-                }
-            
-                // Function to search for emissions data by industryID
-                string search(string industryID) {
-                    int index = hashFunction(industryID);
-                    for (EmissionRecord& record : table[index]) {
-                        if (record.industryID == industryID) {
-                            return record.emissionsData;
-                        }
-                    }
-                    return "Record not found";
-                }
-            
-                // Function to delete an emission record
-                void remove(string industryID) {
-                    int index = hashFunction(industryID);
-                    auto& chain = table[index];
-                    for (auto it = chain.begin(); it != chain.end(); ++it) {
-                        if (it->industryID == industryID) {
-                            chain.erase(it);
-                            cout << "Deleted record for " << industryID << endl;
-                            return;
-                        }
-                    }
-                    cout << "Record not found for " << industryID << endl;
-                }
-            
-                // Function to print all records in the hash table
-                void printTable() {
-                    for (int i = 0; i < capacity; i++) {
-                        cout << "Bucket " << i << ": ";
-                        for (EmissionRecord& record : table[i]) {
-                            cout << "[" << record.industryID << ": " << record.emissionsData << "] ";
-                        }
-                        cout << endl;
-                    }
-                }
-            };
-            
-            // Main Function
-            int main() {
-                HashTable hashTable(10); // Initialize hash table with 10 buckets
-            
-                // Insert emission records
-                hashTable.insert("FactoryA", "CO2=100kg, SO2=50kg");
-                hashTable.insert("FactoryB", "CO2=150kg, NOx=30kg");
-                hashTable.insert("FactoryC", "CO2=200kg, PM2.5=20kg");
-            
-                // Search for a record
-                cout << "Emissions Data for FactoryB: " << hashTable.search("FactoryB") << endl;
-            
-                // Update an existing record
-                hashTable.insert("FactoryB", "CO2=120kg, NOx=25kg");
-            
-                // Delete a record
-                hashTable.remove("FactoryC");
-            
-                // Print all records
-                cout << "Hash Table Contents:" << endl;
-                hashTable.printTable();
-            
-                return 0;
+ // Hash Table Entry Structure
+struct EmissionRecord {
+    string industryID;      // Unique ID for the industry
+    string emissionsData;   // Emission details (e.g., CO2, SO2 levels)
+};
+
+// Hash Table Class
+class HashTable {
+private:
+    vector<list<EmissionRecord>> table; // Array of linked lists (chaining for collision resolution)
+    int capacity;                       // Size of the hash table
+
+    // Hash function to map industryID to an index
+    int hashFunction(string industryID) {
+        int hash = 0;
+        for (char c : industryID) {
+            hash = (hash * 31 + c) % capacity; // Simple polynomial hash
+        }
+        return hash;
+    }
+
+public:
+    // Constructor to initialize the hash table
+    HashTable(int size) {
+        capacity = size;
+        table.resize(size);
+    }
+
+    // Function to insert an emission record
+    void insert(string industryID, string emissionsData) {
+        int index = hashFunction(industryID);
+        for (EmissionRecord& record : table[index]) {
+            if (record.industryID == industryID) {
+                // Update existing record
+                record.emissionsData = emissionsData;
+                cout << "Updated record for " << industryID << endl;
+                return;
             }
+        }
+        // Insert new record
+        table[index].push_back({industryID, emissionsData});
+        cout << "Inserted record for " << industryID << endl;
+    }
+
+    // Function to search for emissions data by industryID
+    string search(string industryID) {
+        int index = hashFunction(industryID);
+        for (EmissionRecord& record : table[index]) {
+            if (record.industryID == industryID) {
+                return record.emissionsData;
+            }
+        }
+        return "Record not found";
+    }
+
+    // Function to delete an emission record
+    void remove(string industryID) {
+        int index = hashFunction(industryID);
+        auto& chain = table[index];
+        for (auto it = chain.begin(); it != chain.end(); ++it) {
+            if (it->industryID == industryID) {
+                chain.erase(it);
+                cout << "Deleted record for " << industryID << endl;
+                return;
+            }
+        }
+        cout << "Record not found for " << industryID << endl;
+    }
+
+    // Function to print all records in the hash table
+    void printTable() {
+        for (int i = 0; i < capacity; i++) {
+            cout << "Bucket " << i << ": ";
+            for (EmissionRecord& record : table[i]) {
+                cout << "[" << record.industryID << ": " << record.emissionsData << "] ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+// Main Function
+int main() {
+    HashTable hashTable(10); // Initialize hash table with 10 buckets
+    int choice;
+
+    do {
+        cout << "\n--- Hash Table Menu ---" << endl;
+        cout << "1. Insert a new record" << endl;
+        cout << "2. Search for a record" << endl;
+        cout << "3. Update a record" << endl;
+        cout << "4. Delete a record" << endl;
+        cout << "5. Print all records" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        cin.ignore(); // Clear the input buffer
+
+        switch (choice) {
+        case 1: {
+            string industryID, emissionsData;
+            cout << "Enter Industry ID: ";
+            getline(cin, industryID);
+            cout << "Enter Emissions Data: ";
+            getline(cin, emissionsData);
+            hashTable.insert(industryID, emissionsData);
+            break;
+        }
+        case 2: {
+            string industryID;
+            cout << "Enter Industry ID to search: ";
+            getline(cin, industryID);
+            cout << "Emissions Data: " << hashTable.search(industryID) << endl;
+            break;
+        }
+        case 3: {
+            string industryID, emissionsData;
+            cout << "Enter Industry ID to update: ";
+            getline(cin, industryID);
+            cout << "Enter New Emissions Data: ";
+            getline(cin, emissionsData);
+            hashTable.insert(industryID, emissionsData); // Reuse insert for update
+            break;
+        }
+        case 4: {
+            string industryID;
+            cout << "Enter Industry ID to delete: ";
+            getline(cin, industryID);
+            hashTable.remove(industryID);
+            break;
+        }
+        case 5:
+            cout << "Hash Table Contents:" << endl;
+            hashTable.printTable();
+            break;
+        case 6:
+            cout << "Exiting..." << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 6);
+
+    return 0;
+}
+//sample input and output
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 1
+Enter Industry ID: Factory1
+Enter Emissions Data: CO2 = 100kg,SO2=50kg
+Inserted record for Factory1
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 2
+Enter Industry ID to search: FactoryA
+Emissions Data: Record not found
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 2
+Enter Industry ID to search: Factory1
+Emissions Data: CO2 = 100kg,SO2=50kg
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 5
+Hash Table Contents:
+Bucket 0:
+Bucket 1:
+Bucket 2:
+Bucket 3:
+Bucket 4:
+Bucket 5:
+Bucket 6:
+Bucket 7: [Factory1: CO2 = 100kg,SO2=50kg]
+Bucket 8:
+Bucket 9:
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 1
+Enter Industry ID: Factory2
+Enter Emissions Data: CO2=200kg,NOx=20kg
+Inserted record for Factory2
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 3
+Enter Industry ID to update: Factory1
+Enter New Emissions Data: CO2=150kg,SO2=23kg
+Updated record for Factory1
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 5
+Hash Table Contents:
+Bucket 0:
+Bucket 1:
+Bucket 2:
+Bucket 3:
+Bucket 4:
+Bucket 5:
+Bucket 6:
+Bucket 7: [Factory1: CO2=150kg,SO2=23kg]
+Bucket 8: [Factory2: CO2=200kg,NOx=20kg]
+Bucket 9:
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 4
+Enter Industry ID to delete: Factory2
+Deleted record for Factory2
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 5
+Hash Table Contents:
+Bucket 0:
+Bucket 1:
+Bucket 2:
+Bucket 3:
+Bucket 4:
+Bucket 5:
+Bucket 6:
+Bucket 7: [Factory1: CO2=150kg,SO2=23kg]
+Bucket 8:
+Bucket 9:
+
+--- Hash Table Menu ---
+1. Insert a new record
+2. Search for a record
+3. Update a record
+4. Delete a record
+5. Print all records
+6. Exit
+Enter your choice: 6
+Exiting...
+
+Process returned 0 (0x0)   execution time : 179.741 s
+Press any key to continue.
 
 </code></pre>
 

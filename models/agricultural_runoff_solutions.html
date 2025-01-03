@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Runoff Solution</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            margin: 2rem auto;
+            max-width: 800px;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        section {
+            margin-bottom: 1.5rem;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .sdgs {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .sdgs li {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Agricultural Runoff Solution</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Dynamic Programming (DP) Applications</h2>
+            <p>Dynamic Programming (DP) techniques are useful for solving agricultural runoff and eco-friendly fertilizer/pesticide design problems where decisions must be made sequentially under constraints. The following DP approaches are particularly relevant:</p>
+        </section>
+        <section>
+            <h3>Example Application</h3>
+            <p><strong>Problem:</strong> Optimize the amount and timing of organic fertilizer application to maximize crop yield while minimizing nutrient runoff.</p>
+            <p><strong>Approach:</strong> Use a time-dependent DP model with the Bellman equation to decide the best fertilization schedule for each crop growth stage, considering constraints like soil saturation and weather forecasts.</p>
+            <p>Dynamic programming provides a structured way to address the complexity and sequential nature of these problems in eco-friendly agricultural practices.</p>
+        </section>
+        <section>
+            <h3>Key DP Techniques</h3>
+            <ul>
+                <li>
+                    <strong>Multi-Stage Decision Processes:</strong> Use the Bellman Equation for optimizing sequential decisions where outcomes at one stage influence the next (e.g., soil nutrient levels affecting the next application).
+                    <p><strong>Example:</strong> Managing crop rotation and organic input application over years to minimize environmental impact.</p>
+                </li>
+                <li>
+                    <strong>Resource Allocation Problems:</strong> Use knapsack problem variants to optimize the allocation of limited resources (e.g., organic fertilizers) across multiple fields while minimizing environmental impact.
+                    <p><strong>Example:</strong> Deciding the amount of fertilizer for each crop to maximize yield while staying within runoff limits.</p>
+                </li>
+                <li>
+                    <strong>Time-Dependent Models:</strong> Use stage-based DP (finite horizon) to model decisions over multiple growth stages of crops to optimize yields and reduce runoff.
+                    <p><strong>Example:</strong> Choosing the best organic fertilizer application schedule across a growing season.</p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>Divide and Conquer</h3>
+            <p><strong>Problem Scope:</strong> Decompose complex problems into smaller, manageable parts.</p>
+            <p><strong>Example:</strong> Simulate runoff impacts for large agricultural lands by dividing the area into smaller grids. Solve for each grid independently and combine results.</p>
+            <p><strong>Design:</strong> Split the problem (e.g., divide fields based on geographical features or soil types). Recursively solve and merge solutions (e.g., aggregate runoff results).</p>
+            <p><strong>Analysis:</strong> Recurrence relation for complexity analysis (e.g., <code>T(n) = 2T(n/2) + O(n)</code>).</p>
+        </section>
+        <section>
+            <h3>Greedy Algorithms</h3>
+            <p><strong>Problem Scope:</strong> Select inputs or allocate resources by making locally optimal choices at each stage.</p>
+            <p><strong>Example:</strong> Minimize fertilizer usage per crop while ensuring a minimum yield threshold. Select irrigation timings based on real-time soil moisture levels.</p>
+            <p><strong>Design:</strong> Define a greedy choice property (e.g., highest yield per unit of fertilizer). Ensure optimal substructure (e.g., local optimization aligns with global optimization).</p>
+            <p><strong>Analysis:</strong> Prove correctness (if applicable) or measure performance with approximation ratios. Assess complexity for scalability across multiple fields or crops.</p>
+        </section>
+
+        <!-- SDGs Section (Moved before the links) -->
+        <section>
+            <h3>Sustainable Development Goals (SDGs)</h3>
+            <p>These are some of the SDGs that are relevant to agricultural runoff solutions and eco-friendly practices:</p>
+            <ul class="sdgs">
+                <li><strong>SDG 2: Zero Hunger</strong> – End hunger, achieve food security and improved nutrition, and promote sustainable agriculture.</li>
+                <li><strong>SDG 3: Good Health and Well-Being</strong> – Ensure healthy lives and promote well-being for all at all ages.</li>
+                <li><strong>SDG 6: Clean Water and Sanitation</strong> – Ensure availability and sustainable management of water and sanitation for all.</li>
+                <li><strong>SDG 12: Responsible Consumption and Production</strong> – Ensure sustainable consumption and production patterns.</li>
+                <li><strong>SDG 13: Climate Action</strong> – Take urgent action to combat climate change and its impacts.</li>
+                <li><strong>SDG 14: Life Below Water</strong> – Conserve and sustainably use the oceans, seas, and marine resources for sustainable development.</li>
+                <li><strong>SDG 15: Life on Land</strong> – Protect, restore, and promote sustainable use of terrestrial ecosystems, manage forests, combat desertification, halt and reverse land degradation, and halt biodiversity loss.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Code Implementation</h3>
+            <p>The C++ code below implements a DP solution for the agricultural runoff optimization problem:</p>
+            <a href="agricultural_runoff.cpp" download>Download the DP C++ Code</a>
+            <p>The C++ code below implements a Divide and Conquer solution for simulating runoff:</p>
+            <a href="divide_and_conquer_runoff.cpp" download>Download the Divide and Conquer C++ Code</a>
+            <p>The C++ code below implements a Greedy Algorithm solution for resource allocation in agricultural practices:</p>
+            <a href="greedy_algorithm_allocation.cpp" download>Download the Greedy Algorithm C++ Code</a>
+        </section>
+    </main>
+</body>
+</html>

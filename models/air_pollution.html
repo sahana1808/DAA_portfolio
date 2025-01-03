@@ -81,12 +81,12 @@
 
         <h3>BST (Insertion and Deletion)</h3>
         <pre><code>
-            #include &lt;iostream&gt;
-            #include &lt;string&gt;
-            using namespace std;
+    #include &lt;iostream&gt;
+    #include &lt;string&gt;
+    using namespace std;
             
             // Structure to represent a node in the BST
-struct AirPurifier {
+    struct AirPurifier {
     int purifierID;
     string location;
     float airQualityIndex;
@@ -236,98 +236,228 @@ int main() {
     cout << "Program terminated." << endl;
     return 0;
 }
+//sample input and output
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 1
+Enter Purifier ID, Location, and AQI: 101
+Office
+42.5
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 1
+Enter Purifier ID, Location, and AQI: 202
+Living Room
+35.7
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 1
+Enter Purifier ID, Location, and AQI: 303
+Bedroom
+50.2
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 1
+Enter Purifier ID, Location, and AQI: 404
+Kitchen
+65.3
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 2
+Enter Purifier ID to search: 202
+Found Purifier - ID: 202, Location: Living Room, AQI: 35.7
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 99
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 2
+Enter Purifier ID to search: 99
+Purifier with ID 99 not found.
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 3
+Enter Purifier ID to delete: 202
+Purifier with ID 202 removed (if it existed).
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 4
+Air Purifier Records (Sorted by ID):
+Purifier ID: 101, Location: Office, AQI: 42.5
+Purifier ID: 303, Location: Bedroom, AQI: 50.2
+Purifier ID: 404, Location: Kitchen, AQI: 65.3
+
+1. Insert
+2. Search
+3. Delete
+4. Display
+5. Exit
+Enter your choice: 5
+Program terminated.
+
+Process returned 0 (0x0)   execution time : 174.357 s
+Press any key to continue.
 
 
 </code></pre>
 
         <h3>Graph (Dijkstra's Algorithm)</h3>
         <pre><code>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-                #include &lt;queue&gt;
-                #include &lt;climits&gt;// For INT_MAX
-                using namespace std;
-                
-                // Pair to represent (cost, vertex)
-                typedef pair<int, int> pii;
-                
-                // Class to represent the graph
-                class AirPurifierGraph {
-                private:
-                    int numStations;                          // Number of nodes (air purifiers/stations)
-                    vector<vector<pii>> adjList;              // Adjacency list: adjList[u] = {(v, weight), ...}
-                
-                public:
-                    // Constructor
-                    AirPurifierGraph(int n) {
-                        numStations = n;
-                        adjList.resize(n);
-                    }
-                
-                    // Function to add an edge between two stations
-                    void addEdge(int u, int v, int weight) {
-                        adjList[u].push_back({v, weight});    // Directed edge from u to v
-                        adjList[v].push_back({u, weight});    // Undirected edge (if applicable)
-                    }
-                
-                    // Function to run Dijkstra's algorithm
-                    void dijkstra(int startNode) {
-                        vector<int> dist(numStations, INT_MAX);    // Distance from startNode to each node
-                        priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-heap to store (cost, vertex)
-                
-                        // Start from the startNode
-                        dist[startNode] = 0;
-                        pq.push({0, startNode});
-                
-                        while (!pq.empty()) {
-                            int currentCost = pq.top().first;
-                            int currentNode = pq.top().second;
-                            pq.pop();
-                
-                            // Traverse neighbors of the current node
-                            for (auto neighbor : adjList[currentNode]) {
-                                int nextNode = neighbor.first;
-                                int edgeWeight = neighbor.second;
-                
-                                // Relax the edge
-                                if (dist[currentNode] + edgeWeight < dist[nextNode]) {
-                                    dist[nextNode] = dist[currentNode] + edgeWeight;
-                                    pq.push({dist[nextNode], nextNode});
-                                }
-                            }
-                        }
-                
-                        // Print the shortest distances from startNode
-                        cout << "Shortest distances from node " << startNode << " to all other nodes:" << endl;
-                        for (int i = 0; i < numStations; i++) {
-                            if (dist[i] == INT_MAX) {
-                                cout << "Node " << i << ": Unreachable" << endl;
-                            } else {
-                                cout << "Node " << i << ": " << dist[i] << endl;
-                            }
-                        }
-                    }
-                };
-                
-                // Main Function
-                int main() {
-                    int numStations = 5; // Example: 5 air purifiers/stations
-                    AirPurifierGraph graph(numStations);
-                
-                    // Add edges between stations (e.g., purifier1, purifier2, weight)
-                    graph.addEdge(0, 1, 10); // Edge between Station 0 and 1 with weight 10
-                    graph.addEdge(0, 2, 5);  // Edge between Station 0 and 2 with weight 5
-                    graph.addEdge(1, 2, 2);  // Edge between Station 1 and 2 with weight 2
-                    graph.addEdge(1, 3, 1);  // Edge between Station 1 and 3 with weight 1
-                    graph.addEdge(2, 3, 9);  // Edge between Station 2 and 3 with weight 9
-                    graph.addEdge(3, 4, 4);  // Edge between Station 3 and 4 with weight 4
-                
-                    int startNode = 0; // Start from Station 0
-                    graph.dijkstra(startNode);
-                
-                    return 0;
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits> // For INT_MAX
+using namespace std;
+
+// Pair to represent (cost, vertex)
+typedef pair<int, int> pii;
+
+// Class to represent the graph
+class AirPurifierGraph {
+private:
+    int numStations;                          // Number of nodes (air purifiers/stations)
+    vector<vector<pii>> adjList;              // Adjacency list: adjList[u] = {(v, weight), ...}
+
+public:
+    // Constructor
+    AirPurifierGraph(int n) {
+        numStations = n;
+        adjList.resize(n);
+    }
+
+    // Function to add an edge between two stations
+    void addEdge(int u, int v, int weight) {
+        adjList[u].push_back({v, weight});    // Directed edge from u to v
+        adjList[v].push_back({u, weight});    // Undirected edge (if applicable)
+    }
+
+    // Function to run Dijkstra's algorithm
+    void dijkstra(int startNode) {
+        vector<int> dist(numStations, INT_MAX);    // Distance from startNode to each node
+        priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-heap to store (cost, vertex)
+
+        // Start from the startNode
+        dist[startNode] = 0;
+        pq.push({0, startNode});
+
+        while (!pq.empty()) {
+            int currentCost = pq.top().first;
+            int currentNode = pq.top().second;
+            pq.pop();
+
+            // Traverse neighbors of the current node
+            for (auto neighbor : adjList[currentNode]) {
+                int nextNode = neighbor.first;
+                int edgeWeight = neighbor.second;
+
+                // Relax the edge
+                if (dist[currentNode] + edgeWeight < dist[nextNode]) {
+                    dist[nextNode] = dist[currentNode] + edgeWeight;
+                    pq.push({dist[nextNode], nextNode});
+                }
+            }
+        }
+
+        // Print the shortest distances from startNode
+        cout << "Shortest distances from node " << startNode << " to all other nodes:" << endl;
+        for (int i = 0; i < numStations; i++) {
+            if (dist[i] == INT_MAX) {
+                cout << "Node " << i << ": Unreachable" << endl;
+            } else {
+                cout << "Node " << i << ": " << dist[i] << endl;
+            }
+        }
+    }
+};
+
+// Main Function
+int main() {
+    int numStations, numEdges;
+
+    // Input the number of stations (nodes)
+    cout << "Enter the number of stations: ";
+    cin >> numStations;
+
+    // Create the graph
+    AirPurifierGraph graph(numStations);
+
+    // Input the number of edges
+    cout << "Enter the number of edges: ";
+    cin >> numEdges;
+
+    cout << "Enter the edges (format: station1 station2 weight):" << endl;
+    for (int i = 0; i < numEdges; i++) {
+        int u, v, weight;
+        cin >> u >> v >> weight;
+        graph.addEdge(u, v, weight);
+    }
+
+    // Input the starting node
+    int startNode;
+    cout << "Enter the starting station: ";
+    cin >> startNode;
+
+    // Run Dijkstra's algorithm
+    graph.dijkstra(startNode);
+
+    return 0;
 }
-                                    //sample input and output
+
+//sample input and output
+Enter the number of stations: 5
+Enter the number of edges: 6
+Enter the edges (format: station1 station2 weight):
+0 1 10
+0 2 5
+1 2 2
+1 3 1
+2 3 9
+3 4 4
+Enter the starting station: 0
+Shortest distances from node 0 to all other nodes:
+Node 0: 0
+Node 1: 7
+Node 2: 5
+Node 3: 8
+Node 4: 12
+
+Process returned 0 (0x0)   execution time : 37.188 s
+Press any key to continue.
                                     
 
 </code></pre>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Recycling and Water Pollution Monitoring</title>
+    <style>
+        body {
+            background-color: pink;
+            color: black;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            color: red;
+            font-size: 32px;
+            margin-top: 20px;
+            animation: fadeInDown 2s ease-in-out;
+        }
+        .section {
+            border: 2px solid red;
+            padding: 20px;
+            margin: 20px auto;
+            width: 90%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
+            animation: slideInUp 2s ease-in-out;
+        }
+        .title {
+            font-size: 28px;
+            color: red;
+            margin-bottom: 10px;
+            animation: fadeInUp 2s ease-in-out;
+        }
+        .content {
+            margin-left: 20px;
+            text-align: justify;
+            font-size: 18px;
+            line-height: 1.6;
+            animation: fadeInUp 2s ease-in-out;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            animation: fadeInUp 2s ease-in-out;
+        }
+        ul {
+            padding-left: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">E-Waste Recycling and Water Pollution Monitoring</div>
+    
+    <div class="section">
+        <div class="title">E-Waste Recycling</div>
+        <div class="content">
+            <strong>Description:</strong> Create a platform for collecting, refurbishing, and reselling e-waste or extracting valuable materials.<br>
+            <strong>Technique Used:</strong> Queues<br>
+            <strong>Why Queues are Used:</strong> 
+     <ul>
+            <li>FIFO (First-In-First-Out): A queue follows the First-In-First-Out principle, meaning the first element added is the first one to be processed. This ensures that items are processed in the order they arrive.</li>
+            
+            <li>Fairness: For tasks like e-waste management, maintaining fairness and order is critical. Each item gets processed in the order it comes, ensuring no item is skipped or delayed.</li>
+            
+            <li>Example Use Case: In e-waste recycling systems, items such as old computers or electronics arrive at different times, and using a queue ensures they are processed in the order they were received.</li>
+            
+            <li>Performance: By processing one item at a time, queues avoid the complexity of backtracking or repeated processing, making the system more efficient.</li>
+        </ul><br>
+            <strong> QUEUE Code in C++:</strong>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+int main() {
+    queue<string> eWaste;
+    eWaste.push("Laptop");
+    eWaste.push("Mobile");
+    eWaste.push("Tablet");
+
+    while (!eWaste.empty()) {
+        cout &lt;&lt; "Processing: " &lt;&lt; eWaste.front() &lt;&lt; endl;
+        eWaste.pop();
+    }
+    return 0;
+}
+            </pre>
+            <strong>SDG Addressed:</strong> SDG 12 - Responsible Consumption and Production<br>
+            <strong>Addressing:</strong> Encourages the sustainable management and recycling of e-waste, reducing environmental harm and conserving resources.
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="title">Water Pollution Monitoring</div>
+        <div class="content">
+            <strong>Description:</strong> Offer IoT-based water quality monitoring systems to industries, municipalities, and agricultural sectors.<br>
+            <strong>Technique Used:</strong> Heap, Dijkstra’s Algorithm<br>
+            <strong>Why Heap and Dijkstra's Algorithm Are Used:</strong> 
+            <ul>
+                <li><strong>Heap:</strong> <ul>
+                    <li>Priority Queue Operations: A heap is a data structure that allows efficient retrieval and removal of the element with the highest or lowest priority.</li>
+                    
+                    <li>Optimal Path Finding: In Dijkstra’s algorithm, heaps are used to maintain a priority queue of nodes based on their shortest known distance, which allows for fast selection of the node with the minimum distance.</li>
+                    
+                    <li>Efficiency in Sorting & Searching: Heaps provide a means to sort elements in log-linear time complexity, which is faster than traditional sorting techniques like quicksort or mergesort.</li>
+                    
+                    <li>Use Case in Water Pollution Monitoring: In monitoring systems, heaps help maintain the priority order of water pollution data, ensuring the most urgent or critical points are prioritized first for data collection or analysis.</li>
+                    
+                    </ul></li>
+                <li><strong>Dijkstra's Algorithm:</strong><ul>
+                    <li>Shortest Path Problem: Dijkstra’s algorithm is specifically designed to find the shortest path from a source node to all other nodes in a graph with non-negative weights.</li>
+                    
+                    <li>Efficient Routing: In water pollution monitoring, the algorithm helps calculate the shortest paths for sensor data collection or the least polluted routes for water flow, ensuring optimal resource allocation.</li>
+                    
+                    <li>Greedy Approach: It makes use of a greedy approach by selecting the node with the shortest known distance, thus optimizing the performance in scenarios with weighted graphs (like networks for water pollution).</li>
+                    
+                    <li>Use Case in Water Quality Monitoring: In water pollution systems, nodes represent locations, edges represent distances, and weights represent pollution levels. Dijkstra helps determine optimal monitoring points or areas that need immediate attention.</li>
+                    
+                    <li>Scalability: Dijkstra’s algorithm works efficiently even as the number of nodes and edges increases, which is crucial for large-scale water pollution monitoring systems.</li>
+                    </ul>
+                    
+                     </li>
+                     By utilizing these data structures and algorithms, we optimize performance, maintain order, and ensure the efficient processing and analysis of e-waste and water pollution.
+            </ul>
+            <strong>Heap Algorithm:</strong>
+            <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+void heapify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    for (int i = n - 1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
+int main() {
+    int arr[] = {10, 20, 15, 30, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout &lt;&lt; "Original Array: ";
+    for (int i = 0; i < n; i++) cout &lt;&lt; arr[i] &lt;&lt; " ";
+
+    heapSort(arr, n);
+
+    cout &lt;&lt; "\nSorted Array: ";
+    for (int i = 0; i < n; i++) cout &lt;&lt; arr[i] &lt;&lt; " ";
+    
+    return 0;
+}
+            </pre>
+            <strong>Dijkstra Algorithm in C++:</strong>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+void dijkstra(vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; graph, int src) {
+    int n = graph.size();
+    vector&lt;int&gt; dist(n, INT_MAX);
+    vector&lt;bool&gt; visited(n, false);
+    dist[src] = 0;
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        int u = -1;
+        for (int v = 0; v &lt; n; v++) {
+            if (!visited[v] &amp;&amp; (u == -1 || dist[v] &lt; dist[u])) {
+                u = v;
+            }
+        }
+
+        visited[u] = true;
+
+        for (auto&amp; edge : graph[u]) {
+            int v = edge.first;
+            int weight = edge.second;
+
+            if (!visited[v] &amp;&amp; dist[u] + weight &lt; dist[v]) {
+                dist[v] = dist[u] + weight;
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; "Distance from source to node " &lt;&lt; i &lt;&lt; ": " &lt;&lt; dist[i] &lt;&lt; endl;
+    }
+}
+
+int main() {
+    int n = 5; // Number of nodes
+    vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; graph(n);
+
+    // Add edges (u, v, weight)
+    graph[0].push_back({1, 10});
+    graph[0].push_back({4, 5});
+    graph[1].push_back({2, 1});
+    graph[1].push_back({4, 2});
+    graph[2].push_back({3, 4});
+    graph[3].push_back({2, 6});
+    graph[4].push_back({1, 3});
+    graph[4].push_back({2, 9});
+    graph[4].push_back({3, 2});
+
+    dijkstra(graph, 0);
+
+    return 0;
+}
+            </pre>
+            <strong>SDG Addressed:</strong> SDG 6 - Clean Water and Sanitation<br>
+            <strong>Addressing:</strong> Ensures access to safe water by monitoring pollution levels and improving water quality for sustainable water management.
+        </div>
+    </div>
+</body>
+</html>

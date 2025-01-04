@@ -104,6 +104,8 @@
             
 using namespace std;
 
+using namespace std;
+
 // Simple hash function for demonstration purposes (not secure like SHA256)
 string simpleHash(string input) {
     unsigned long hash = 5381;
@@ -179,6 +181,7 @@ public:
             cout << "Emissions Data: " << temp->emissionsData << endl;
             cout << "Previous Hash: " << temp->previousHash << endl;
             cout << "Current Hash: " << temp->blockHash << endl;
+            cout << "Safe Emissions: " << (isEmissionSafe(temp->emissionsData) ? "Yes" : "No") << endl;
             cout << "----------------------------------" << endl;
             temp = temp->next;
         }
@@ -187,6 +190,27 @@ public:
     // Helper to generate the next block ID
     int getNextBlockID() {
         return head ? head->blockID + 1 : 1;
+    }
+
+    // Function to check if emission levels are safe
+    bool isEmissionSafe(string emissionsData) {
+        float co2 = 0.0, nox = 0.0;
+
+        // Parse emissions data (expected format: "CO2 = value, NOx = value")
+        size_t co2Pos = emissionsData.find("CO2 = ");
+        size_t noxPos = emissionsData.find("NOx = ");
+        if (co2Pos != string::npos) {
+            co2 = stof(emissionsData.substr(co2Pos + 6, emissionsData.find(",", co2Pos) - co2Pos - 6));
+        }
+        if (noxPos != string::npos) {
+            nox = stof(emissionsData.substr(noxPos + 6));
+        }
+
+        // Define safe thresholds
+        const float CO2_THRESHOLD = 150.0; // Maximum safe CO2 level
+        const float NOX_THRESHOLD = 80.0;  // Maximum safe NOx level
+
+        return co2 <= CO2_THRESHOLD && nox <= NOX_THRESHOLD;
     }
 };
 
@@ -208,7 +232,7 @@ int main() {
         switch (choice) {
         case 1: {
             string emissionsData;
-            cout << "Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg): ";
+            cout << "Enter emissions data (e.g., CO2 = 100, NOx = 50): ";
             getline(cin, emissionsData);
             blockchain.addBlock(emissionsData);
             break;
@@ -226,22 +250,23 @@ int main() {
 
     return 0;
 }
+
 //sample input and output
 --- Blockchain Menu ---
 1. Add a new block
 2. Print the blockchain
 3. Exit
 Enter your choice: 1
-Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg): Factory A:CO2 = 120 kg,NOx = 60kg
-Block added: 1, Hash: 53fd62d3
+Enter emissions data (e.g., CO2 = 100, NOx = 50): CO2=200,NOx=125
+Block added: 1, Hash: 1f4559a6
 
 --- Blockchain Menu ---
 1. Add a new block
 2. Print the blockchain
 3. Exit
 Enter your choice: 1
-Enter emissions data (e.g., Factory A: CO2 = 100kg, NOx = 50kg):  Factory B:CO2 = 200 kg,SO2 = 40kg
-Block added: 2, Hash: 3be53bf0
+Enter emissions data (e.g., CO2 = 100, NOx = 50): CO2=99,NOx=79
+Block added: 2, Hash: 1341b579
 
 --- Blockchain Menu ---
 1. Add a new block
@@ -249,16 +274,18 @@ Block added: 2, Hash: 3be53bf0
 3. Exit
 Enter your choice: 2
 Block ID: 2
-Timestamp: Sat Jan 04 01:48:12 2025
-Emissions Data:  Factory B:CO2 = 200 kg,SO2 = 40kg
-Previous Hash: 53fd62d3
-Current Hash: 3be53bf0
+Timestamp: Sat Jan 04 13:03:36 2025
+Emissions Data: CO2=99,NOx=79
+Previous Hash: 1f4559a6
+Current Hash: 1341b579
+Safe Emissions: Yes
 ----------------------------------
 Block ID: 1
-Timestamp: Sat Jan 04 01:46:52 2025
-Emissions Data: Factory A:CO2 = 120 kg,NOx = 60kg
+Timestamp: Sat Jan 04 13:03:13 2025
+Emissions Data: CO2=200,NOx=125
 Previous Hash: 0
-Current Hash: 53fd62d3
+Current Hash: 1f4559a6
+Safe Emissions: Yes
 ----------------------------------
 
 --- Blockchain Menu ---
@@ -268,9 +295,8 @@ Current Hash: 53fd62d3
 Enter your choice: 3
 Exiting...
 
-Process returned 0 (0x0)   execution time : 209.770 s
+Process returned 0 (0x0)   execution time : 72.690 s
 Press any key to continue.
-
 </code></pre>
 
         <h3>Hash Table</h3>
